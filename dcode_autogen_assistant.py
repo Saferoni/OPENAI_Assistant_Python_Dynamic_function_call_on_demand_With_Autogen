@@ -67,10 +67,10 @@ def get_ossinsight(question):
 
 from autogen.agentchat.contrib.gpt_assistant_agent import GPTAssistantAgent
 from autogen import UserProxyAgent
-from assistant_manager import OAI_Assistant
+from assistant_manager.assistant_manager import OAI_Assistant
 from openai.types.beta.assistant import Assistant
-import dynamic_functions
-from utils import file_operations, special_functions
+from assistant_manager.functions.dynamic import dynamic_functions
+from assistant_manager.utils import file_operations, special_functions
 
 
 async def create_agent(Assistant_config,assistantManager: OAI_Assistant):

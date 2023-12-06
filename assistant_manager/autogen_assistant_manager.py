@@ -1,6 +1,7 @@
-from assistant_tools import Tooling
+from assistant_manager.assistant_tools import Tooling
 from assistant_manager.interface_base import InterfaceBase
 import logging
+
 
 class AutogenAssistantManager(Tooling, InterfaceBase):
 
@@ -19,17 +20,14 @@ class AutogenAssistantManager(Tooling, InterfaceBase):
         """
         super().__init__(api_key=api_key, organization=organization, timeout=timeout, log_level=log_level)
 
-    
-    
     def list_autogen_assistants(self):
         """
         Returns a list of autogen Assistants
         """
         return self.autogen_assistants
-    
 
-
-    def make_autogen_tool_metadata(self, tool_name, tool_required, tool_description, tool_properties, tool_meta_description):
+    def make_autogen_tool_metadata(self, tool_name, tool_required, tool_description, tool_properties,
+                                   tool_meta_description):
         """
         Registers metadata for a tool.
 
@@ -45,16 +43,14 @@ class AutogenAssistantManager(Tooling, InterfaceBase):
         """
         # Define the metadata for the tool
         metadata = {
-                "name": tool_name,
-                "description": tool_description,
-                "parameters": {
-                    "type": "object",
-                    "properties": tool_properties,
-                    "required": [tool_required]
-                },
-                "description": tool_meta_description
+            "name": tool_name,
+            "description": tool_description,
+            "parameters": {
+                "type": "object",
+                "properties": tool_properties,
+                "required": [tool_required]
+            },
+            "description": tool_meta_description
         }
         # Return the metadata
         return metadata
-
-    

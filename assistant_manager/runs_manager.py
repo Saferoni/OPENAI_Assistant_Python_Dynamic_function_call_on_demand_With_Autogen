@@ -1,4 +1,4 @@
-#oai base
+# oai base
 import inspect
 import json
 import time
@@ -13,9 +13,9 @@ class Run_Manager(OAI_Threads):
     def __init__(self, api_key, organization, timeout, log_level) -> None:
         super().__init__(api_key, organization, timeout, log_level)
 
-
-    def create_run(self, thread_id, assistant_id, model=None, instructions=None, tools=None, metadata=None, extra_headers=None, extra_query=None, extra_body=None, timeout=None):
-            """
+    def create_run(self, thread_id, assistant_id, model=None, instructions=None, tools=None, metadata=None,
+                   extra_headers=None, extra_query=None, extra_body=None, timeout=None):
+        """
             Create a run.
 
             Args:
@@ -30,21 +30,21 @@ class Run_Manager(OAI_Threads):
                 extra_body: Add additional JSON properties to the request
                 timeout: Override the client-level default timeout for this request, in seconds
             """
-            return self.client.threads.runs.create(
-                    thread_id=thread_id, 
-                    assistant_id=assistant_id, 
-                    model=model, 
-                    instructions=instructions, 
-                    tools=tools, 
-                    metadata=metadata,
-                    extra_headers=extra_headers,
-                    extra_query=extra_query,
-                    extra_body=extra_body,
-                    timeout=timeout
-            )
+        return self.client.threads.runs.create(
+            thread_id=thread_id,
+            assistant_id=assistant_id,
+            model=model,
+            instructions=instructions,
+            tools=tools,
+            metadata=metadata,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout
+        )
 
     def retrieve_run(self, thread_id, run_id, extra_headers=None, extra_query=None, extra_body=None, timeout=None):
-            """
+        """
             Retrieves a run.
 
             Args:
@@ -55,17 +55,18 @@ class Run_Manager(OAI_Threads):
                 extra_body: Add additional JSON properties to the request
                 timeout: Override the client-level default timeout for this request, in seconds
             """
-            return self.client.threads.runs.retrieve(
-                    thread_id=thread_id,
-                    run_id=run_id,
-                    extra_headers=extra_headers,
-                    extra_query=extra_query,
-                    extra_body=extra_body,
-                    timeout=timeout
-            )
+        return self.client.threads.runs.retrieve(
+            thread_id=thread_id,
+            run_id=run_id,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout
+        )
 
-    def update_run(self, thread_id, run_id, metadata=None, extra_headers=None, extra_query=None, extra_body=None, timeout=None):
-            """
+    def update_run(self, thread_id, run_id, metadata=None, extra_headers=None, extra_query=None, extra_body=None,
+                   timeout=None):
+        """
             Modifies a run.
 
             Args:
@@ -77,18 +78,19 @@ class Run_Manager(OAI_Threads):
                 extra_body: Add additional JSON properties to the request
                 timeout: Override the client-level default timeout for this request, in seconds
             """
-            return self.client.threads.runs.update(
-                    thread_id=thread_id,
-                    run_id=run_id,
-                    metadata=metadata,
-                    extra_headers=extra_headers,
-                    extra_query=extra_query,
-                    extra_body=extra_body,
-                    timeout=timeout
-            )
+        return self.client.threads.runs.update(
+            thread_id=thread_id,
+            run_id=run_id,
+            metadata=metadata,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout
+        )
 
-    def list_runs(self, thread_id, limit=20, order="desc", after=None, before=None, extra_headers=None, extra_query=None, extra_body=None, timeout=None):
-            """
+    def list_runs(self, thread_id, limit=20, order="desc", after=None, before=None, extra_headers=None,
+                  extra_query=None, extra_body=None, timeout=None):
+        """
             Returns a list of runs belonging to a thread.
 
             Args:
@@ -102,20 +104,20 @@ class Run_Manager(OAI_Threads):
                 extra_body: Add additional JSON properties to the request
                 timeout: Override the client-level default timeout for this request, in seconds
             """
-            return self.client.threads.runs.list(
-                    thread_id=thread_id, 
-                    limit=limit, 
-                    order=order, 
-                    after=after, 
-                    before=before,
-                    extra_headers=extra_headers,
-                    extra_query=extra_query,
-                    extra_body=extra_body,
-                    timeout=timeout
-            )
-    
+        return self.client.threads.runs.list(
+            thread_id=thread_id,
+            limit=limit,
+            order=order,
+            after=after,
+            before=before,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout
+        )
+
     def cancel_run(self, thread_id, run_id, extra_headers=None, extra_query=None, extra_body=None, timeout=None):
-            """
+        """
             Cancels a run.
 
             Args:
@@ -126,16 +128,16 @@ class Run_Manager(OAI_Threads):
                 extra_body: Add additional JSON properties to the request
                 timeout: Override the client-level default timeout for this request, in seconds
             """
-            return self.client.threads.runs.cancel(
-                    thread_id=thread_id,
-                    run_id=run_id,
-                    extra_headers=extra_headers,
-                    extra_query=extra_query,
-                    extra_body=extra_body,
-                    timeout=timeout
-            )
+        return self.client.threads.runs.cancel(
+            thread_id=thread_id,
+            run_id=run_id,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout
+        )
 
-    def process_run(self,thread_id, run_id):
+    def process_run(self, thread_id, run_id):
         while True:
             run = self.retrieve_run(thread_id, run_id)
             print(run.status)
@@ -166,24 +168,26 @@ class Run_Manager(OAI_Threads):
                         function_metadata = arguments["metadata_dict"]
 
                         function_meta_description = arguments["tool_meta_description"]
-                        #Check if we need to json.loads the metadata
+                        # Check if we need to json.loads the metadata
                         if isinstance(function_metadata, str):
                             function_metadata = json.loads(arguments["metadata_dict"])
-                        #print(f"Function name: {function_name}")
+                        # print(f"Function name: {function_name}")
                         self.logger.debug(f"Function code: {function_code}")
-                        #print(f"Function metadata: {function_metadata}")
+                        # print(f"Function metadata: {function_metadata}")
                         # append the function and metadata to the current assistant
-                        function_output = append_new_tool_function_and_metadata(function_name, function_code, function_metadata, function_meta_description)
-                        #function_output = append_new_tool_function_and_metadata(self, **(arguments))
+                        function_output = append_new_tool_function_and_metadata(function_name, function_code,
+                                                                                function_metadata,
+                                                                                function_meta_description)
+                        # function_output = append_new_tool_function_and_metadata(self, **(arguments))
                         tools_output.append({"tool_call_id": action["id"], "output": str(function_output)})
                         continue
-                        
+
                     # Functions Dynamically registered in the utils/special_functions.py file    
                     elif action["function"]["name"] in dir(special_functions):
                         arguments = json.loads(action["function"]["arguments"])
                         function_name = action["function"]["name"]
                         function = getattr(special_functions, function_name)
-                        #check if the arguments are a string and if so convert to dict
+                        # check if the arguments are a string and if so convert to dict
                         if isinstance(arguments, str):
                             arguments = json.loads(arguments)
                         # Does the function need self?
@@ -200,16 +204,16 @@ class Run_Manager(OAI_Threads):
                             arguments = json.loads(arguments)
                         function_name = action["function"]["name"]
                         function = getattr(file_operations, function_name)
-                        #check if the arguments are a string and if so convert to dict
+                        # check if the arguments are a string and if so convert to dict
                         function_output = function(**(arguments))
                         tools_output.append({"tool_call_id": action["id"], "output": str(function_output)})
 
-                    #functions registerd on self
+                    # functions registerd on self
                     elif action["function"]["name"] in dir(self):
                         arguments = json.loads(action["function"]["arguments"])
                         function_name = action["function"]["name"]
                         function = getattr(self, function_name)
-                        #check if the arguments are a string and if so convert to dict
+                        # check if the arguments are a string and if so convert to dict
                         print(f"ARGUMENTS {arguments}")
                         if isinstance(arguments, str):
                             arguments = json.loads(arguments)
@@ -217,22 +221,22 @@ class Run_Manager(OAI_Threads):
                         # give it time to process
                         time.sleep(2)
                         tools_output.append({"tool_call_id": action["id"], "output": str(function_output)})
-                        
-                    #functions registered in the dynamic_functions.py file
+
+                    # functions registered in the dynamic_functions.py file
                     elif action["function"]["name"] in dir(dynamic_functions):
-                        
+
                         arguments = json.loads(action["function"]["arguments"])
                         function_name = action["function"]["name"]
                         function = getattr(dynamic_functions, function_name)
-                        #check if the arguments are a string and if so convert to dict
+                        # check if the arguments are a string and if so convert to dict
                         function_output = function(**(arguments))
                         # give it time to process
                         time.sleep(2)
-                        
+
                         tools_output.append({"tool_call_id": action["id"], "output": str(function_output)})
                     else:
                         print(f"Function {action['function']['name']} not found")
-                #message_user(f"Tools Output: {tools_output}")
+                # message_user(f"Tools Output: {tools_output}")
                 self.submit_tool_outputs(thread_id, run.id, tools_output)
 
             elif run.status == "failed":
@@ -256,23 +260,22 @@ class Run_Manager(OAI_Threads):
 
         run_done = self.process_run(thread_id=thread_id, run_id=run.id)
         self.logger.debug(f"Run processed: {run_done}")
-        #Wait for the run to complete
+        # Wait for the run to complete
         if run_done is not None:
             print("Run Completed")
             message_list = self.list_thread_history()
-            #check for a new message in the thread
+            # check for a new message in the thread
             for message in message_list:
-                    message_obj = self.retrieve_message(thread_id=thread_id, message_id=message)
-                    if message_obj.id is None:
-                        continue
-                    if message_obj.id in self.chat_ids:
-                        #print("Message already seen")
-                        continue
-                    else:
-                        #message
-                        self.message_user(f'assistant: {message_obj.content[0].text.value}')
-                        # Put it in the chat_ids list so we don't repeat it
-                        self.chat_ids.append(message_obj.id)
+                message_obj = self.retrieve_message(thread_id=thread_id, message_id=message)
+                if message_obj.id is None:
+                    continue
+                if message_obj.id in self.chat_ids:
+                    # print("Message already seen")
+                    continue
+                else:
+                    # message
+                    self.message_user(f'assistant: {message_obj.content[0].text.value}')
+                    # Put it in the chat_ids list so we don't repeat it
+                    self.chat_ids.append(message_obj.id)
         else:
-                self.logger.error(f"Run failed: {run}")
-
+            self.logger.error(f"Run failed: {run}")
